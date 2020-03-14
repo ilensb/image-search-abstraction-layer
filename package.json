@@ -1,0 +1,30 @@
+{
+  "name": "image-search-abstraction",
+  "version": "1.0.0",
+  "description": "This is the Image Search Abstraction Layer",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Basil Ilenikhena",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31",
+    "superagent": "^3.6.1"
+  },
+  "devDependencies": {
+    "jest": "^21.1.0",
+    "supertest": "^3.0.0"
+  }
+}
