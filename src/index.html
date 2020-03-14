@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Image Search Abstraction Layer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="display-3 text-center">Image Search Abstraction Layer</h1>
+                        <hr class="my-4">
+                        <h4>
+                            <strong>Objective:</strong>
+                        </h4>
+                        <ul>
+                            <li>Build a full stack JavaScript app that allows you to search for images browse recent search queries.</li>
+                        </ul>
+                        <h4>
+                            <strong>User Stories:</strong>
+                        </h4>
+                        <ul>
+                            <li>I can get the image URLs, alt text and page urls for a set of images relating to a given search
+                                string.
+                            </li>
+                            <li>I can paginate through the responses by adding a ?offset=10 parameter to the URL.</li>
+                            <li>I can get a list of the most recently submitted search strings.</li>
+                        </ul>
+                        <h5 class="text-center">
+                            <strong>* Search results are obtained through the Google Custom Search API *</strong>
+                        </h5>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Example 1</h4>
+                                <p class="card-text">Search for images request:&nbsp;&nbsp;
+                                    <a class="card-link" href="https://cloudy-marquis-igevimu3s3.glitch.me/search/lolcats%20funny?offset=10">https://cloudy-marquis-igevimu3s3.glitch.me/search/lolcats%20funny?offset=10</a>
+                                </p>
+                                <p class="card-text">Search for images results:</p>
+                                <pre><code>[
+    {
+        "url": "http://i0.kym-cdn.com/photos/images/newsfeed/000/010/017/lolcats-funny-pictures-surprise-cannibalism.jpg",
+        "snippet": "Image - 10017] | LOLcats | Know Your Meme",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_3LXRSIoZhjjSnZYvCE67Yxf4XR-dxpkhIVMU8FQhpRqWpKUeXaJmNCc",
+        "context": "http://knowyourmeme.com/photos/10017-lolcats"
+    },
+    {
+        "url": "https://img.scoop.it/f-tKCNgJWPoGzbrK5LCQhTl72eJkfbmt4t8yenImKBVvK0kTmF0xjctABnaLJIm9",
+        "snippet": "Lolcats: Ohai hooman - Lolcats - Funny Pictures...",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnKqxoHtHn8b0dYvy4VKUKWZ3obuPs3O2agntOwGzNscV-mJghnsMEQgE",
+        "context": "http://www.scoop.it/t/pictures/p/1665736655/2012/04/25/lolcats-ohai-hooman-lolcats-funny-pictures-of-cats-i-can-has"
+    },
+    {
+        "url": "http://i0.kym-cdn.com/photos/images/facebook/000/024/740/lolcats-funny-pictures-halp-not-for-sale.jpg",
+        "snippet": "Image - 24740] | LOLcats | Know Your Meme",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwAVlPDkEfE65WZ-UmL7KxfK0sC9jCjwnujwvTDleqQ_BrB93WAT2m2fyQ",
+        "context": "http://knowyourmeme.com/photos/24740-lolcats"
+    },
+    {
+        "url": "https://i.ytimg.com/vi/dWpGC6Fg0io/hqdefault.jpg",
+        "snippet": "Jas Patrick sings Snow Day starring LOLCats Funny Cats - YouTube",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNMCLSl2dHm87xTU6uMFZD0Jym2E-4lAaSdJzfc_6OkeB_CdF1vjgZZsR2",
+        "context": "https://www.youtube.com/watch?v=dWpGC6Fg0io"
+    },
+    {
+        "url": "http://i0.kym-cdn.com/photos/images/original/000/010/014/lolcats-funny-pictures-leroy-jenkins.jpg",
+        "snippet": "Image - 10014] | LOLcats | Know Your Meme",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe_pDSRjgo3sEUaNo0xOOjh_frpTjCy1VyoPG-hh0aK7aRvfTDlXPnx-Q",
+        "context": "http://knowyourmeme.com/photos/10014-lolcats"
+    },
+    {
+        "url": "https://img.scoop.it/nCDfJ08MpKhEdCcEztDllTl72eJkfbmt4t8yenImKBVvK0kTmF0xjctABnaLJIm9",
+        "snippet": "Lolcats: Trust me. - Lolcats - Funny Pictures o...",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzlqyqamk-b85EzibpHcYlfc6i8luNd803igOeN9NL2g5C_I5-oa2P1A",
+        "context": "http://www.scoop.it/t/crazy-cats/p/1661402930/2012/04/25/lolcats-trust-me-lolcats-funny-pictures-of-cats-i-can-has"
+    },
+    {
+        "url": "http://i0.kym-cdn.com/photos/images/original/000/010/017/lolcats-funny-pictures-surprise-cannibalism.jpg",
+        "snippet": "Image - 10017] | LOLcats | Know Your Meme",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXBpDueya0bfWRnj-q0FfTmx01gdr1kCCSlfZ3brV8-oiVQKjZ1YwKb6c",
+        "context": "http://knowyourmeme.com/photos/10017-lolcats"
+    },
+    {
+        "url": "https://llwproductions.files.wordpress.com/2012/05/funny-cat-pictures-with-caption-lolcats-one-dumbazh-away.jpg",
+        "snippet": "This is Motley News' 1,000th Post! Time to Celebrate with Funnies ...",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvgMU-uS_Czv-Gw7eHFYf2Ue6wMoNX00AImn8Ljk0ZHKzjG7_us5FCG6K5",
+        "context": "https://motleynews.net/2012/05/01/this-is-motley-news-1000th-post-time-to-celebrate-with-funnies/"
+    },
+    {
+        "url": "https://i.ytimg.com/vi/BZhZiCjUilk/hqdefault.jpg",
+        "snippet": "Lolcats And Funny Computer Errors - YouTube",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-0jEp_p8F_GovkBQRiFpW21nDi6Ydx_8p4ptts2g38IVdR5nk2BNOhtEF",
+        "context": "https://www.youtube.com/watch?v=BZhZiCjUilk"
+    },
+    {
+        "url": "http://i0.kym-cdn.com/photos/images/facebook/000/182/924/funny-pictures-cat-asks-to-be-sent-down-the-bar.jpg",
+        "snippet": "Image - 182924] | LOLcats | Know Your Meme",
+        "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMw7l19VX2IKGv5idoMc6vPN4Ljl7acUu_aT_9V_8oPA36Bu0aRxzRBun0",
+        "context": "http://knowyourmeme.com/photos/182924-lolcats"
+    }
+]</code></pre>
+                            </div>
+                        </div>
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Example 2</h4>
+                                <p class="card-text">Get recent searches request:&nbsp;&nbsp;
+                                    <a class="card-link" href="https://cloudy-marquis-igevimu3s3.glitch.me/recent">https://cloudy-marquis-igevimu3s3.glitch.me/recent</a>
+                                </p>
+                                <p class="card-text">Get recent searches results:</p>
+                                <pre><code>[
+    {
+        "term": "green banana",
+        "when": "2017-10-09T22:05:57.058Z"
+    },
+    {
+        "term": "green banana",
+        "when": "2017-10-09T22:24:16.015Z"
+    },
+    {
+        "term": "lolcats funny",
+        "when": "2017-10-09T22:24:26.015Z"
+    },
+    {
+        "term": "crazy dancer",
+        "when": "2017-10-09T22:24:36.014Z"
+    },
+    {
+        "term": "chocolate goat",
+        "when": "2017-10-09T22:24:46.015Z"
+    },
+    {
+        "term": "lolcats funny",
+        "when": "2017-10-10T20:59:55.371Z"
+    }
+]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</body>
+
+</html>
